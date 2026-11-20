@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Deploy static content to Pages](https://github.com/claudemirtech/unicode/actions/workflows/static.yml/badge.svg)](https://github.com/claudemirtech/unicode/actions/workflows/static.yml)
+[![Deploy static content to Pages](https://github.com/atomicwebai/unicode/actions/workflows/static.yml/badge.svg)](https://github.com/atomicwebai/unicode/actions/workflows/static.yml)
 [![GitHub Pages](https://img.shields.io/badge/Demo-Disponível%20Online-blue?style=flat&logo=githubpages)](https://atomicweb.com.br/unicode)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)](https://developer.mozilla.org/pt-BR/docs/Web/HTML)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
@@ -10,7 +10,7 @@
 
 **Ferramenta prática e rápida para converter caracteres especiais e acentuados na sua representação Unicode escape (`\uXXXX`).**
 
-[🌐 Acessar Demonstração Online](https://atomicweb.com.br/unicode) • [Reportar Problema](https://github.com/claudemirtech/unicode/issues)
+[🌐 Acessar Demonstração Online](https://atomicweb.com.br/unicode) • [Reportar Problema](https://github.com/atomicwebai/unicode/issues)
 
 </div>
 
@@ -83,7 +83,7 @@ Como a aplicação é estática e não possui dependências de compilação ou b
 ### Opção 1: Diretamente no Navegador
 Basta clonar o repositório e abrir o arquivo [`index.html`](file:///home/claudemir/Projects/Atomicweb/unicode/index.html) em qualquer navegador web:
 ```bash
-git clone https://github.com/claudemirtech/unicode.git
+git clone https://github.com/atomicwebai/unicode.git
 cd unicode
 # No Linux:
 xdg-open index.html

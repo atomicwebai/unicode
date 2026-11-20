@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>AtomicWeb - Conversor Unicode</title>
     <meta name="description" content="Conversor Unicode: converta caracteres especiais para sua representação Unicode escape (\uXXXX). Ferramenta simples, rápida e prática.">
 
@@ -18,10 +18,70 @@
     <link rel="icon" type="image/svg+xml" href="img/logo.svg">
     <link rel="apple-touch-icon" href="img/logo192.png">
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS CDN (with defer to avoid blocking HTML parsing) -->
+    <script defer src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 font-sans text-gray-900 min-h-screen">
+
+<!-- SVG Sprite for reusable icons -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0" height="0" style="position: absolute; overflow: hidden;">
+    <symbol id="icon-github" viewBox="0 0 24 24" fill="currentColor">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+    <symbol id="icon-copy" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <polyline points="20 6 9 17 4 12"></polyline>
+    </symbol>
+    <symbol id="icon-input" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+        <line x1="6" y1="8" x2="6" y2="8"></line>
+        <line x1="10" y1="8" x2="10" y2="8"></line>
+        <line x1="14" y1="8" x2="14" y2="8"></line>
+        <line x1="18" y1="8" x2="18" y2="8"></line>
+        <line x1="6" y1="12" x2="6" y2="12"></line>
+        <line x1="10" y1="12" x2="10" y2="12"></line>
+        <line x1="14" y1="12" x2="14" y2="12"></line>
+        <line x1="18" y1="12" x2="18" y2="12"></line>
+        <line x1="7" y1="16" x2="17" y2="16"></line>
+    </symbol>
+    <symbol id="icon-options" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <line x1="4" y1="21" x2="4" y2="14"></line>
+        <line x1="4" y1="10" x2="4" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="12"></line>
+        <line x1="12" y1="8" x2="12" y2="3"></line>
+        <line x1="20" y1="21" x2="20" y2="16"></line>
+        <line x1="20" y1="12" x2="20" y2="3"></line>
+        <line x1="1" y1="14" x2="7" y2="14"></line>
+        <line x1="9" y1="8" x2="15" y2="8"></line>
+        <line x1="17" y1="16" x2="23" y2="16"></line>
+    </symbol>
+    <symbol id="icon-refresh" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <polyline points="23 4 23 10 17 10"></polyline>
+        <polyline points="1 20 1 14 7 14"></polyline>
+        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+    </symbol>
+    <symbol id="icon-trash" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <polyline points="3 6 5 6 21 6"></polyline>
+        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+    </symbol>
+    <symbol id="icon-output" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <polyline points="16 18 22 12 16 6"></polyline>
+        <polyline points="8 6 2 12 8 18"></polyline>
+    </symbol>
+    <symbol id="icon-info" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="16" x2="12" y2="12"></line>
+        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+    </symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M9 18h6"></path>
+        <path d="M10 22h4"></path>
+        <path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"></path>
+    </symbol>
+</svg>
 
 <div class="w-[95%] max-w-4xl mx-auto p-4 md:py-6 space-y-6 min-h-screen flex flex-col justify-between">
     <div class="space-y-6">
@@ -31,10 +91,8 @@
                 <img src="img/logo.svg" alt="Logo" width="30" height="30" class="mr-2"/>
                 <span class="text-xl font-bold text-blue-900">AtomicWeb</span>
             </a>
-            <a href="https://github.com/claudemirtech/unicode" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-blue-700 hover:text-blue-900 font-medium text-sm transition" title="Ver código no GitHub">
-                <svg class="w-4 h-4 mr-1.5 fill-current" viewBox="0 0 24 24">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-                </svg>
+            <a href="https://github.com/atomicwebai/unicode" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-blue-700 hover:text-blue-900 font-medium text-sm transition" title="Ver código no GitHub">
+                <svg class="w-4 h-4 mr-1.5 fill-current" aria-hidden="true"><use href="#icon-github"></use></svg>
                 GitHub
             </a>
         </header>
@@ -52,23 +110,12 @@
             <!-- Entrada -->
             <div class="mb-6">
                 <label for="entrada" class="flex items-center text-gray-800 font-semibold text-lg mb-2">
-                    <svg class="w-5 h-5 text-blue-600 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
-                        <line x1="6" y1="8" x2="6" y2="8"></line>
-                        <line x1="10" y1="8" x2="10" y2="8"></line>
-                        <line x1="14" y1="8" x2="14" y2="8"></line>
-                        <line x1="18" y1="8" x2="18" y2="8"></line>
-                        <line x1="6" y1="12" x2="6" y2="12"></line>
-                        <line x1="10" y1="12" x2="10" y2="12"></line>
-                        <line x1="14" y1="12" x2="14" y2="12"></line>
-                        <line x1="18" y1="12" x2="18" y2="12"></line>
-                        <line x1="7" y1="16" x2="17" y2="16"></line>
-                    </svg>
+                    <svg class="w-5 h-5 text-blue-600 mr-2 shrink-0" aria-hidden="true"><use href="#icon-input"></use></svg>
                     Texto de Entrada
                 </label>
                 <div class="relative">
-                    <textarea 
-                        id="entrada" 
+                    <textarea
+                        id="entrada"
                         rows="3"
                         class="w-full p-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all resize-none"
                         placeholder="Digite seu texto aqui (ex: Usuários, café, maçã, etc.)"
@@ -77,15 +124,15 @@
                         <span id="charCount">0</span> caracteres
                     </div>
                 </div>
-                
+
                 <!-- Exemplos rápidos -->
                 <div class="mt-3 flex flex-wrap items-center gap-2">
                     <span class="text-gray-500 text-sm mr-1">Exemplos:</span>
-                    <button type="button" onclick="preencherExemplo('Usuários')" class="px-3 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-full text-xs font-medium transition">Usuários</button>
-                    <button type="button" onclick="preencherExemplo('café')" class="px-3 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-full text-xs font-medium transition">café</button>
-                    <button type="button" onclick="preencherExemplo('maçã')" class="px-3 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-full text-xs font-medium transition">maçã</button>
-                    <button type="button" onclick="preencherExemplo('canção')" class="px-3 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-full text-xs font-medium transition">canção</button>
-                    <button type="button" onclick="preencherExemplo('😀🎉❤️')" class="px-3 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-full text-xs font-medium transition">😀🎉❤️</button>
+                    <button type="button" data-exemplo="Usuários" class="px-3 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-full text-xs font-medium transition">Usuários</button>
+                    <button type="button" data-exemplo="café" class="px-3 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-full text-xs font-medium transition">café</button>
+                    <button type="button" data-exemplo="maçã" class="px-3 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-full text-xs font-medium transition">maçã</button>
+                    <button type="button" data-exemplo="canção" class="px-3 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-full text-xs font-medium transition">canção</button>
+                    <button type="button" data-exemplo="😀🎉❤️" class="px-3 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-full text-xs font-medium transition">😀🎉❤️</button>
                 </div>
             </div>
 
@@ -94,56 +141,39 @@
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
                     <div>
                         <h3 class="text-gray-800 font-semibold mb-2 flex items-center text-sm md:text-base">
-                            <svg class="w-4 h-4 text-blue-600 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="4" y1="21" x2="4" y2="14"></line>
-                                <line x1="4" y1="10" x2="4" y2="3"></line>
-                                <line x1="12" y1="21" x2="12" y2="12"></line>
-                                <line x1="12" y1="8" x2="12" y2="3"></line>
-                                <line x1="20" y1="21" x2="20" y2="16"></line>
-                                <line x1="20" y1="12" x2="20" y2="3"></line>
-                                <line x1="1" y1="14" x2="7" y2="14"></line>
-                                <line x1="9" y1="8" x2="15" y2="8"></line>
-                                <line x1="17" y1="16" x2="23" y2="16"></line>
-                            </svg>
+                            <svg class="w-4 h-4 text-blue-600 mr-2 shrink-0" aria-hidden="true"><use href="#icon-options"></use></svg>
                             Opções de Conversão
                         </h3>
                         <div class="flex flex-wrap items-center gap-4">
-                            <label class="flex items-center text-gray-700 text-sm cursor-pointer">
+                            <label for="manterAscii" class="flex items-center text-gray-700 text-sm cursor-pointer">
                                 <input type="checkbox" id="manterAscii" checked class="mr-2 h-4 w-4 text-blue-600 rounded focus:ring-blue-500 border-gray-300">
                                 Manter caracteres ASCII
                             </label>
-                            <label class="flex items-center text-gray-700 text-sm cursor-pointer">
+                            <label for="maiusculas" class="flex items-center text-gray-700 text-sm cursor-pointer">
                                 <input type="checkbox" id="maiusculas" class="mr-2 h-4 w-4 text-blue-600 rounded focus:ring-blue-500 border-gray-300">
                                 Letras maiúsculas no código
                             </label>
                         </div>
                     </div>
-                    
-                    <button 
+
+                    <button
                         type="button"
-                        onclick="converter()" 
+                        id="btnConverter"
                         class="w-full sm:w-auto px-6 py-3 bg-blue-700 hover:bg-blue-600 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition duration-200 flex items-center justify-center"
                     >
-                        <svg class="w-5 h-5 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="23 4 23 10 17 10"></polyline>
-                            <polyline points="1 20 1 14 7 14"></polyline>
-                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-                        </svg>
+                        <svg class="w-5 h-5 mr-2 shrink-0" aria-hidden="true"><use href="#icon-refresh"></use></svg>
                         Converter para Unicode
                     </button>
                 </div>
-                
+
                 <!-- Botão extra para limpar -->
                 <div class="flex justify-end">
-                    <button 
+                    <button
                         type="button"
-                        onclick="limparCampos()" 
+                        id="btnLimpar"
                         class="px-3.5 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-200 rounded-lg flex items-center text-sm font-medium transition-colors"
                     >
-                        <svg class="w-4 h-4 mr-1.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="3 6 5 6 21 6"></polyline>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                        </svg>
+                        <svg class="w-4 h-4 mr-1.5 text-gray-500" aria-hidden="true"><use href="#icon-trash"></use></svg>
                         Limpar
                     </button>
                 </div>
@@ -153,61 +183,47 @@
             <div>
                 <div class="flex justify-between items-center mb-2">
                     <label class="flex items-center text-gray-800 font-semibold text-lg">
-                        <svg class="w-5 h-5 text-blue-600 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="16 18 22 12 16 6"></polyline>
-                            <polyline points="8 6 2 12 8 18"></polyline>
-                        </svg>
+                        <svg class="w-5 h-5 text-blue-600 mr-2 shrink-0" aria-hidden="true"><use href="#icon-output"></use></svg>
                         Resultado Unicode
                     </label>
-                    <div class="text-gray-500 text-xs flex items-center">
-                        <svg class="w-4 h-4 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="12" y1="16" x2="12" y2="12"></line>
-                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                        </svg>
+                    <div class="text-gray-500 text-xs flex items-center" id="copyHint">
+                        <svg class="w-4 h-4 mr-1 text-gray-400" aria-hidden="true"><use href="#icon-info"></use></svg>
                         Clique no código para copiar
                     </div>
                 </div>
-                
+
                 <div class="relative">
-                    <div 
-                        id="resultado" 
-                        class="w-full p-5 bg-gray-900 border border-gray-800 rounded-xl text-emerald-400 font-mono text-base md:text-lg whitespace-pre-wrap break-all min-h-[100px] cursor-pointer hover:bg-gray-850 transition-colors"
-                        onclick="copiarResultado()"
-                        title="Clique para copiar"
+                    <div
+                        id="resultado"
+                        class="w-full p-5 bg-gray-900 border border-gray-800 rounded-xl text-emerald-400 font-mono text-base md:text-lg whitespace-pre-wrap break-all min-h-[100px] cursor-pointer hover:bg-gray-850 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        tabindex="0"
+                        role="button"
+                        aria-label="Resultado Unicode, pressione Enter ou Espaço para copiar"
+                        title="Clique ou pressione Enter/Espaço para copiar"
                     >Aguardando conversão...</div>
-                    
-                    <button 
+
+                    <button
                         id="copyBtn"
                         type="button"
-                        onclick="copiarResultado()" 
                         class="absolute top-3 right-3 bg-gray-800 hover:bg-gray-700 text-gray-300 p-2.5 rounded-lg border border-gray-700 transition"
+                        aria-label="Copiar resultado Unicode"
                         title="Copiar resultado"
                     >
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                        </svg>
+                        <svg class="w-5 h-5" aria-hidden="true"><use href="#icon-copy"></use></svg>
                     </button>
-                    
-                    <div id="copyFeedback" class="absolute bottom-3 right-3 hidden">
+
+                    <div id="copyFeedback" class="absolute bottom-3 right-3 hidden" aria-live="polite">
                         <span class="bg-emerald-600 text-white px-3 py-1 rounded-lg text-sm font-medium flex items-center shadow">
-                            <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
+                            <svg class="w-4 h-4 mr-1.5" aria-hidden="true"><use href="#icon-check"></use></svg>
                             Copiado!
                         </span>
                     </div>
                 </div>
-                
+
                 <!-- Informações adicionais -->
                 <div id="infoAdicional" class="mt-5 p-4 md:p-5 bg-blue-50/70 border border-blue-200 rounded-xl hidden">
                     <h4 class="text-blue-900 font-semibold mb-3 flex items-center text-sm md:text-base">
-                        <svg class="w-4 h-4 text-blue-600 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="12" y1="16" x2="12" y2="12"></line>
-                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                        </svg>
+                        <svg class="w-4 h-4 text-blue-600 mr-2 shrink-0" aria-hidden="true"><use href="#icon-info"></use></svg>
                         Informações Detalhadas
                     </h4>
                     <div id="infoConteudo"></div>
@@ -219,228 +235,307 @@
     <!-- Rodapé informativo -->
     <div class="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200 flex flex-col sm:flex-row items-center justify-between text-sm text-blue-900 gap-3">
         <div class="flex items-center">
-            <svg class="w-5 h-5 text-blue-600 mr-2.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 18h6"></path>
-                <path d="M10 22h4"></path>
-                <path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"></path>
-            </svg>
+            <svg class="w-5 h-5 text-blue-600 mr-2.5 shrink-0" aria-hidden="true"><use href="#icon-shield"></use></svg>
             <span><strong>Dica:</strong> Unicode escape é usado em JSON e strings</span>
         </div>
-        <a href="https://github.com/claudemirtech/unicode" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-blue-700 hover:text-blue-900 font-medium shrink-0" title="Ver código no GitHub">
-            <svg class="w-4 h-4 mr-1.5 fill-current" viewBox="0 0 24 24">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-            </svg>
+        <a href="https://github.com/atomicwebai/unicode" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-blue-700 hover:text-blue-900 font-medium shrink-0" title="Ver código no GitHub">
+            <svg class="w-4 h-4 mr-1.5 fill-current" aria-hidden="true"><use href="#icon-github"></use></svg>
             GitHub
         </a>
     </div>
 </div>
 
 <script>
-    // Atualizar contador de caracteres
-    const entradaElement = document.getElementById('entrada');
-    const charCountElement = document.getElementById('charCount');
+    // IIFE para evitar poluição do namespace global
+    (function() {
+        'use strict';
 
-    entradaElement.addEventListener('input', function() {
-        const charCount = this.value.length;
-        charCountElement.textContent = charCount;
-        
-        if (charCount > 100) {
-            charCountElement.classList.add('text-amber-600', 'font-medium');
-            charCountElement.classList.remove('text-gray-400');
-        } else {
-            charCountElement.classList.remove('text-amber-600', 'font-medium');
-            charCountElement.classList.add('text-gray-400');
-        }
-    });
-    
-    // Inicializar contador
-    entradaElement.dispatchEvent(new Event('input'));
+        // Constantes
+        const CHAR_WARNING_THRESHOLD = 100;
+        const CONTROL_CHAR_LIMIT = 32; // U+0020 (espaço)
+        const COPY_FEEDBACK_DURATION = 2000;
 
-    // Função para preencher exemplos
-    function preencherExemplo(texto) {
-        entradaElement.value = texto;
-        entradaElement.dispatchEvent(new Event('input'));
-        converter();
-    }
-
-    // Função principal de conversão
-    function converter() {
-        const entrada = entradaElement.value;
-        const manterAscii = document.getElementById('manterAscii').checked;
-        const maiusculas = document.getElementById('maiusculas').checked;
-        
-        let resultado;
-        
-        if (manterAscii) {
-            // Converter apenas caracteres não-ASCII
-            resultado = entrada.replace(/[^\x00-\x7F]/g, function(char) {
-                let hex = char.charCodeAt(0).toString(16).padStart(4, '0');
-                if (maiusculas) hex = hex.toUpperCase();
-                return '\\u' + hex;
-            });
-        } else {
-            // Converter todos os caracteres
-            resultado = Array.from(entrada).map(function(char) {
-                const codigo = char.codePointAt(0);
-                if (codigo <= 32) return char; // Manter espaços e quebras de linha
-                const escapes = codigo > 0xFFFF
-                    ? Array.from(char).flatMap(function(unidade) {
-                        return [unidade.charCodeAt(0)];
-                    })
-                    : [codigo];
-                return escapes.map(function(unidade) {
-                    let hex = unidade.toString(16).padStart(4, '0');
-                    if (maiusculas) hex = hex.toUpperCase();
-                    return '\\u' + hex;
-                }).join('');
-            }).join('');
-        }
-        
-        // Exibir resultado
+        // Elementos DOM
+        const entradaElement = document.getElementById('entrada');
+        const charCountElement = document.getElementById('charCount');
         const resultadoElement = document.getElementById('resultado');
-        resultadoElement.textContent = resultado || "(vazio)";
-        resultadoElement.classList.remove('text-emerald-400', 'text-red-400');
-        resultadoElement.classList.add(resultado ? 'text-emerald-400' : 'text-red-400');
-        
-        // Mostrar informações detalhadas
-        mostrarInformacoes(entrada, resultado);
-    }
+        const copyBtn = document.getElementById('copyBtn');
+        const copyFeedback = document.getElementById('copyFeedback');
+        const infoAdicional = document.getElementById('infoAdicional');
+        const infoConteudo = document.getElementById('infoConteudo');
+        const btnConverter = document.getElementById('btnConverter');
+        const btnLimpar = document.getElementById('btnLimpar');
+        const manterAsciiCheckbox = document.getElementById('manterAscii');
+        const maiusculasCheckbox = document.getElementById('maiusculas');
 
-    // Função para mostrar informações detalhadas
-    function mostrarInformacoes(entrada, resultadoUnicode) {
-        const infoElement = document.getElementById('infoAdicional');
-        const conteudoElement = document.getElementById('infoConteudo');
-        
-        if (!entrada) {
-            infoElement.classList.add('hidden');
-            return;
+        // Função de escape HTML para prevenir XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
-        
-        // Contar caracteres especiais
-        const caracteresEspeciais = entrada.match(/[^\x00-\x7F]/g) || [];
-        
-        // Criar cards de detalhes
-        let html = `
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-                <div class="bg-white p-3.5 rounded-lg border border-blue-100 shadow-sm">
-                    <div class="text-gray-500 text-xs font-semibold uppercase tracking-wider">Caracteres totais</div>
-                    <div class="text-xl font-bold text-gray-800 mt-1">${entrada.length}</div>
-                </div>
-                <div class="bg-white p-3.5 rounded-lg border border-blue-100 shadow-sm">
-                    <div class="text-gray-500 text-xs font-semibold uppercase tracking-wider">Caracteres especiais</div>
-                    <div class="text-xl font-bold text-blue-600 mt-1">${caracteresEspeciais.length}</div>
-                </div>
-                <div class="bg-white p-3.5 rounded-lg border border-blue-100 shadow-sm">
-                    <div class="text-gray-500 text-xs font-semibold uppercase tracking-wider">Tamanho do resultado</div>
-                    <div class="text-xl font-bold text-blue-700 mt-1">${resultadoUnicode.length}</div>
-                </div>
-            </div>
-        `;
-        
-        // Se houver caracteres especiais, mostrar tabela
-        if (caracteresEspeciais.length > 0) {
-            html += `
-                <div class="mt-4">
-                    <div class="text-gray-700 font-medium text-sm mb-2">Detalhes dos caracteres convertidos:</div>
-                    <div class="overflow-x-auto bg-white rounded-lg border border-blue-100 shadow-sm">
-                        <table class="w-full text-left text-sm">
-                            <thead>
-                                <tr class="border-b border-blue-100 bg-blue-50/50 text-blue-900 font-semibold">
-                                    <th class="py-2 px-3">Caractere</th>
-                                    <th class="py-2 px-3">Código Unicode</th>
-                                    <th class="py-2 px-3">Escape</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-            `;
-            
-            // Remover duplicados
-            const caracteresUnicos = [...new Set(caracteresEspeciais)];
-            
-            caracteresUnicos.forEach(char => {
-                const code = char.codePointAt(0);
-                const hex = code.toString(16).padStart(4, '0').toUpperCase();
-                const escapedChar = char.replace(/[&<>"']/g, function(c) {
-                    return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c];
+
+        // Atualizar contador de caracteres
+        function atualizarContador() {
+            const charCount = entradaElement.value.length;
+            charCountElement.textContent = charCount;
+
+            if (charCount > CHAR_WARNING_THRESHOLD) {
+                charCountElement.classList.add('text-amber-600', 'font-medium');
+                charCountElement.classList.remove('text-gray-400');
+            } else {
+                charCountElement.classList.remove('text-amber-600', 'font-medium');
+                charCountElement.classList.add('text-gray-400');
+            }
+        }
+
+        // Converter caractere para escape Unicode
+        function charToUnicodeEscape(char, maiusculas) {
+            const code = char.codePointAt(0);
+            const hex = code.toString(16).padStart(4, '0');
+            return '\\u' + (maiusculas ? hex.toUpperCase() : hex);
+        }
+
+        // Função principal de conversão
+        function converter() {
+            const entrada = entradaElement.value;
+            const manterAscii = manterAsciiCheckbox.checked;
+            const maiusculas = maiusculasCheckbox.checked;
+
+            let resultado;
+
+            if (manterAscii) {
+                // Converter apenas caracteres não-ASCII
+                resultado = entrada.replace(/[^\x00-\x7F]/g, function(char) {
+                    return charToUnicodeEscape(char, maiusculas);
                 });
-                const escape = code > 0xFFFF
-                    ? Array.from(char).map(function(unidade) {
-                        return '\\u' + unidade.charCodeAt(0).toString(16).padStart(4, '0').toUpperCase();
-                    }).join('')
-                    : '\\u' + hex;
-                html += `
-                    <tr class="border-b border-gray-100 hover:bg-blue-50/40 transition">
-                        <td class="py-2 px-3 text-lg font-medium text-gray-800">${escapedChar}</td>
-                        <td class="py-2 px-3 font-mono text-gray-600">U+${hex}</td>
-                        <td class="py-2 px-3 font-mono text-blue-600 font-semibold">${escape}</td>
-                    </tr>
-                `;
+            } else {
+                // Converter todos os caracteres (exceto controles <= U+0020)
+                resultado = Array.from(entrada).map(function(char) {
+                    const codigo = char.codePointAt(0);
+                    if (codigo <= CONTROL_CHAR_LIMIT) return char; // Preservar espaços, tabs, newlines
+                    return charToUnicodeEscape(char, maiusculas);
+                }).join('');
+            }
+
+            // Exibir resultado
+            resultadoElement.textContent = resultado || '(vazio)';
+            resultadoElement.classList.remove('text-emerald-400', 'text-red-400');
+            resultadoElement.classList.add(resultado ? 'text-emerald-400' : 'text-red-400');
+
+            // Mostrar informações detalhadas
+            mostrarInformacoes(entrada, resultado);
+        }
+
+        // Criar elemento de card de estatística
+        function criarCardStat(label, value, valueClasses) {
+            const card = document.createElement('div');
+            card.className = 'bg-white p-3.5 rounded-lg border border-blue-100 shadow-sm';
+
+            const labelEl = document.createElement('div');
+            labelEl.className = 'text-gray-500 text-xs font-semibold uppercase tracking-wider';
+            labelEl.textContent = label;
+
+            const valueEl = document.createElement('div');
+            valueEl.className = 'text-xl font-bold mt-1 ' + valueClasses;
+            valueEl.textContent = value;
+
+            card.appendChild(labelEl);
+            card.appendChild(valueEl);
+            return card;
+        }
+
+        // Criar linha da tabela
+        function criarLinhaTabela(char, code, hex, escape) {
+            const tr = document.createElement('tr');
+            tr.className = 'border-b border-gray-100 hover:bg-blue-50/40 transition';
+
+            const tdChar = document.createElement('td');
+            tdChar.className = 'py-2 px-3 text-lg font-medium text-gray-800';
+            tdChar.textContent = char;
+
+            const tdCode = document.createElement('td');
+            tdCode.className = 'py-2 px-3 font-mono text-gray-600';
+            tdCode.textContent = 'U+' + hex;
+
+            const tdEscape = document.createElement('td');
+            tdEscape.className = 'py-2 px-3 font-mono text-blue-600 font-semibold';
+            tdEscape.textContent = escape;
+
+            tr.appendChild(tdChar);
+            tr.appendChild(tdCode);
+            tr.appendChild(tdEscape);
+            return tr;
+        }
+
+        // Função para mostrar informações detalhadas (usa DOM APIs em vez de innerHTML)
+        function mostrarInformacoes(entrada, resultadoUnicode) {
+            if (!entrada) {
+                infoAdicional.classList.add('hidden');
+                return;
+            }
+
+            // Limpar conteúdo anterior
+            infoConteudo.innerHTML = '';
+
+            // Contar caracteres especiais
+            const caracteresEspeciais = entrada.match(/[^\x00-\x7F]/g) || [];
+
+            // Grid de estatísticas
+            const grid = document.createElement('div');
+            grid.className = 'grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4';
+
+            grid.appendChild(criarCardStat('Caracteres totais', entrada.length, 'text-gray-800'));
+            grid.appendChild(criarCardStat('Caracteres especiais', caracteresEspeciais.length, 'text-blue-600'));
+            grid.appendChild(criarCardStat('Tamanho do resultado', resultadoUnicode.length, 'text-blue-700'));
+
+            infoConteudo.appendChild(grid);
+
+            // Se houver caracteres especiais, mostrar tabela
+            if (caracteresEspeciais.length > 0) {
+                const section = document.createElement('div');
+                section.className = 'mt-4';
+
+                const title = document.createElement('div');
+                title.className = 'text-gray-700 font-medium text-sm mb-2';
+                title.textContent = 'Detalhes dos caracteres convertidos:';
+                section.appendChild(title);
+
+                const tableWrapper = document.createElement('div');
+                tableWrapper.className = 'overflow-x-auto bg-white rounded-lg border border-blue-100 shadow-sm';
+
+                const table = document.createElement('table');
+                table.className = 'w-full text-left text-sm';
+
+                const thead = document.createElement('thead');
+                const headerRow = document.createElement('tr');
+                headerRow.className = 'border-b border-blue-100 bg-blue-50/50 text-blue-900 font-semibold';
+
+                ['Caractere', 'Código Unicode', 'Escape'].forEach(text => {
+                    const th = document.createElement('th');
+                    th.className = 'py-2 px-3';
+                    th.textContent = text;
+                    headerRow.appendChild(th);
+                });
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+
+                const tbody = document.createElement('tbody');
+
+                // Remover duplicados mantendo ordem
+                const caracteresUnicos = [...new Set(caracteresEspeciais)];
+
+                caracteresUnicos.forEach(char => {
+                    const code = char.codePointAt(0);
+                    const hex = code.toString(16).padStart(4, '0').toUpperCase();
+                    const escape = code > 0xFFFF
+                        ? Array.from(char).map(u => '\\u' + u.charCodeAt(0).toString(16).padStart(4, '0').toUpperCase()).join('')
+                        : '\\u' + hex;
+
+                    tbody.appendChild(criarLinhaTabela(char, code, hex, escape));
+                });
+
+                table.appendChild(tbody);
+                tableWrapper.appendChild(table);
+                section.appendChild(tableWrapper);
+                infoConteudo.appendChild(section);
+            }
+
+            infoAdicional.classList.remove('hidden');
+        }
+
+        // Função para copiar resultado com tratamento de erro
+        function copiarResultado() {
+            const resultado = resultadoElement.textContent;
+
+            if (resultado === 'Aguardando conversão...' || resultado === '(vazio)') {
+                return;
+            }
+
+            navigator.clipboard.writeText(resultado).then(function() {
+                // Sucesso
+                copyBtn.innerHTML = '<svg class="w-5 h-5" aria-hidden="true"><use href="#icon-check"></use></svg>';
+                copyBtn.classList.remove('bg-gray-800', 'hover:bg-gray-700');
+                copyBtn.classList.add('bg-emerald-600');
+                copyFeedback.classList.remove('hidden');
+
+                setTimeout(function() {
+                    copyBtn.innerHTML = '<svg class="w-5 h-5" aria-hidden="true"><use href="#icon-copy"></use></svg>';
+                    copyBtn.classList.remove('bg-emerald-600');
+                    copyBtn.classList.add('bg-gray-800', 'hover:bg-gray-700');
+                    copyFeedback.classList.add('hidden');
+                }, COPY_FEEDBACK_DURATION);
+            }).catch(function(err) {
+                // Erro ao copiar (ex: contexto não seguro, permissão negada)
+                console.error('Falha ao copiar:', err);
+                // Feedback visual de erro
+                const feedbackSpan = copyFeedback.querySelector('span');
+                feedbackSpan.textContent = 'Erro ao copiar';
+                feedbackSpan.classList.remove('bg-emerald-600');
+                feedbackSpan.classList.add('bg-red-600');
+                copyFeedback.classList.remove('hidden');
+
+                setTimeout(function() {
+                    copyFeedback.classList.add('hidden');
+                    feedbackSpan.textContent = 'Copiado!';
+                    feedbackSpan.classList.remove('bg-red-600');
+                    feedbackSpan.classList.add('bg-emerald-600');
+                }, COPY_FEEDBACK_DURATION);
             });
-            
-            html += `
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            `;
         }
-        
-        conteudoElement.innerHTML = html;
-        infoElement.classList.remove('hidden');
-    }
 
-    // SVGs para botão copiar
-    const copyIconSvg = `<svg class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
-    const checkIconSvg = `<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
-
-    // Função para copiar resultado
-    function copiarResultado() {
-        const resultado = document.getElementById('resultado').textContent;
-        
-        if (resultado === "Aguardando conversão..." || resultado === "(vazio)") {
-            return;
+        // Função para limpar campos
+        function limparCampos() {
+            entradaElement.value = '';
+            resultadoElement.textContent = 'Aguardando conversão...';
+            resultadoElement.classList.remove('text-emerald-400', 'text-red-400');
+            resultadoElement.classList.add('text-emerald-400');
+            infoAdicional.classList.add('hidden');
+            atualizarContador();
         }
-        
-        navigator.clipboard.writeText(resultado).then(() => {
-            const copyBtn = document.getElementById('copyBtn');
-            const copyFeedback = document.getElementById('copyFeedback');
-            
-            copyBtn.innerHTML = checkIconSvg;
-            copyBtn.classList.remove('bg-gray-800', 'hover:bg-gray-700');
-            copyBtn.classList.add('bg-emerald-600');
-            copyFeedback.classList.remove('hidden');
-            
-            setTimeout(() => {
-                copyBtn.innerHTML = copyIconSvg;
-                copyBtn.classList.remove('bg-emerald-600');
-                copyBtn.classList.add('bg-gray-800', 'hover:bg-gray-700');
-                copyFeedback.classList.add('hidden');
-            }, 2000);
-        });
-    }
 
-    // Função para limpar campos
-    function limparCampos() {
-        entradaElement.value = '';
-        const resultadoElement = document.getElementById('resultado');
-        resultadoElement.textContent = 'Aguardando conversão...';
-        resultadoElement.classList.remove('text-emerald-400', 'text-red-400');
-        resultadoElement.classList.add('text-emerald-400');
-        document.getElementById('infoAdicional').classList.add('hidden');
-        entradaElement.dispatchEvent(new Event('input'));
-    }
-
-    // Converter automaticamente ao carregar a página
-    document.addEventListener('DOMContentLoaded', function() {
-        converter();
-    });
-    
-    // Permitir conversão com Enter (Ctrl+Enter)
-    entradaElement.addEventListener('keydown', function(e) {
-        if (e.ctrlKey && e.key === 'Enter') {
+        // Preencher exemplo
+        function preencherExemplo(texto) {
+            entradaElement.value = texto;
+            atualizarContador();
             converter();
         }
-    });
+
+        // Event Listeners
+        entradaElement.addEventListener('input', atualizarContador);
+        btnConverter.addEventListener('click', converter);
+        btnLimpar.addEventListener('click', limparCampos);
+        copyBtn.addEventListener('click', copiarResultado);
+        resultadoElement.addEventListener('click', copiarResultado);
+
+        // Keyboard support para área de resultado
+        resultadoElement.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                copiarResultado();
+            }
+        });
+
+        // Ctrl+Enter no textarea para converter
+        entradaElement.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                e.preventDefault();
+                converter();
+            }
+        });
+
+        // Botões de exemplo (delegation via data attribute)
+        document.querySelectorAll('[data-exemplo]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const texto = this.getAttribute('data-exemplo');
+                preencherExemplo(texto);
+            });
+        });
+
+        // Inicializar
+        atualizarContador();
+        converter();
+    })();
 </script>
 </body>
 </html>
